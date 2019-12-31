@@ -10,3 +10,15 @@ h1 {
     color: white;
     height: 50px;
   }
+
+  .hide {
+    display: none;
+  }
+
+  .unhide {
+    display: static;
+  }
+
+  #beerTitle {
+    color: red;
+  }

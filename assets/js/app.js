@@ -1,6 +1,7 @@
 
 
 const secretKey = config.SECRET_KEY;
+console.log(secretKey);
 //load html before running jQuery code
 $(document).ready(function() { 
 //add event listener onto submit button to hit the API and return results
@@ -27,55 +28,21 @@ $('#beerSubmit').on('click', function() {
         }
     })
     .then(function(response) {
-        // console.log(response.data);
         console.log(response.data);
-        const beerName =  response.data[0].name;   
-        const beerDescription = response.data[0].description;  
-        const beerImg = response.data[0].labels.medium;
-        const beerContent = response.data[0].abv;
+        var beerName =  response.data[0].name;   
+        var beerDescription = response.data[0].description;  
+        var beerImg = response.data[0].labels.medium;
+        var beerContent = response.data[0].abv;
+        console.log(beerName, beerDescription, beerImg, beerContent);
         
         //build out card
-        const row = $('<div>');
-        row.addClass('row').text('test');
-        row.append('#beerInfo');
+        let beerInfo = document.getElementById('beerInfo');
+        $("#beerInfo").attr('class', 'unhide');
+        $('#beerTitle').html(beerName);
+        $("#beerDescription").html(beerDescription);
+        $("#beerImg").attr('src', beerImg).html();
+        $("#abvContent").html(beerContent + '% abv');
 
-        const card = $('<div>').addClass('card');;
-        card.append(row);
-
-        const cardImg = $('<div>').addClass('card-image');
-        cardImg.append(card);
-
-        const imgSrc = $('<img>').attr('src', beerImg);
-        imgSrc.append(cardImg);
-
-        const span = $('<span>').addClass('card-title').text(beerName);
-        span.append(cardImg);
-
-        const cardContent = $('<div>').addClass('card-content');
-        cardContent.append(card)
-
-        const p1 = $('<p>').text(beerDescription);
-        cardContent.append(p1);
-
-        const p2 = $('<p>').text(beerContent);
-        p1.append(p2);
-        
-
-
-
-        
-        
-
-
-                  // Creating and storing an image tag
-                //   var catImage = $("<img>");
-                  
-                //             // Setting the catImage src attribute to imageUrl
-                //             catImage.attr("src", imageUrl);
-                //             catImage.attr("alt", "cat image");
-                  
-                //             // Prepending the catImage to the images div
-                //             $("#images").prepend(catImage);
     });
-    })
+    });
 });
