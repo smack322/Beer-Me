@@ -13,7 +13,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <link rel="stylesheet" href="./assets/css/style.css">
     <script src="https://kit.fontawesome.com/d0b4a64681.js" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <style>
+        #map {
+            height: 400px;
+            width: 100%;
+        }
+
+    </style>   
 </head>
 
 <body>
@@ -35,6 +42,7 @@
     </nav>
     <div class="container">
             <h1>Bars near Me!</h1>
+            <div id='map'></div>
     </div>
     
     <footer class="page-footer">
@@ -44,6 +52,66 @@
     </footer>
     <script type='text/javascript' src='./assets/js/config.js'></script>
     <script src="./assets/js/app.js"></script>
+    <script>
+        //Map Options
+        const googleAPI_KEY = config.GOOGLE_MAPS_KEY;
+        console.log(googleAPI_KEY);
+        var lat;
+        var lon;
+
+        //get the users location for the Google Map
+
+        function getLocation() {
+        // Make sure browser supports this feature
+        if (navigator.geolocation) {
+          // Provide our showPosition() function to getCurrentPosition
+          navigator.geolocation.getCurrentPosition(showPosition);
+        } 
+        else {
+          alert("Geolocation is not supported by this browser.");
+        }
+      }
+
+      // This will get called after getCurrentPosition()
+      function showPosition(position) {
+        // Grab coordinates from the given object
+         lat = position.coords.latitude;
+         lon = position.coords.longitude;
+        console.log("Your coordinates are Latitude: " + lat + " Longitude " + lon);
+
+        // Call our next function, passing on the coordinates
+      }
+      getLocation();
+      showPosition();
+      console.log('lat ', lat + 'long', lon);
+
+        function initMap() {
+            console.log('lat', lat + 'long', lon);
+
+
+            var options = {
+                zoom: 8,
+                center: {lat: 42.3601, lng: -71.0589}
+            }
+        //New Map
+            var map = new google.maps.Map(document.getElementById('map'), options);
+
+      
+
+        var marker = new google.maps.Marker({
+            position: {lat: this.lat, lng: this.lon},
+            map:map
+        });
+
+        var marker1 = new google.maps.Marker({
+            position: {lat: lat, lng: lon},
+            map:map
+        });
+    }
+    initMap();
+</script>
+    <script src='https://maps.googleapis.com/maps/api/js?key=&callback=initMap'
+    async defer></script>
 </body>
 
 </html>
